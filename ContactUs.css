@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f0f0f0ea;
+    background-image: url("img6.jpg"); 
+    margin: 0;
+    padding: 0;
+}
+.form{
+    width: 90%;
+    background-color: rgb(151, 205, 241, 50%);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px; /*padding defines space inside borders.*/
+    max-width:500px;
+    margin-bottom: 10%; /*magin creates space around elements*/
+    margin-top: 10%; /*magin creates space around elements*/
+}
+
+
+#contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: rgb(219, 216, 222);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the fieldset and legend */
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+legend {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Style labels within the fieldset */
+
+fieldset label {
+    margin-right: 20px; /*magin creates space around elements*/
+}
+
+/* Style the textarea */
+textarea {
+    resize: vertical; /*Specifies whether or not an element is resizable by the user, and if so, along which axis/axes.*/
+}
+label[for="bio"] {
+    font-weight: bold; /*Specifies weight of glyphs in the font, their degree of blackness or stroke thickness*/
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+#submit {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#submit:hover {
+    background-color: #0056b3;
+}
+
+/* Add styles for form validation */
+input:invalid,
+textarea:invalid {
+    border-color: #dc3545; /* Red border for invalid input */
+}
+
+input:valid,
+textarea:valid {
+    border-color: #28a745; /* Green border for valid input */
+}
+
+.invalid-feedback {
+    color: #dc3545; /* Red text for validation error message */
+    font-size: 14px;
+}

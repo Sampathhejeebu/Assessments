@@ -1,0 +1,28 @@
+ /* Custom CSS for styling */
+ body {
+    font-family: Arial, sans-serif;
+    background-color: #278463;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: rgb(1, 58, 32);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #69945a;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.team-member {
+    margin-bottom: 20px;
+}
+.team-member img {
+    max-width: 100%;
+    border-radius: 50%;
+}

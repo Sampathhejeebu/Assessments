@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="ContactUs.css">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <form id="contact-form">
+            <h1></h1>
+            <p>Welcome to IMDb. We'd love to hear from you!</p>
+
+            <h2>Contact Information</h2>
+            <p>
+                <strong>Company Name:</strong>  Internet Movie Database<br>
+                <strong>Phone:</strong> (123) 456-7890<br>
+                <strong>Email:</strong> imdb@imdb.com<br>
+                <strong>Address:</strong> 1620 26th St Los Angeles
+            </p>
+            <fieldset>
+                <legend>Contact Information</legend>
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="location">Location (City or Country):</label>
+                <input type="text" id="location" name="location" required>
+            </fieldset>
+
+            <fieldset>
+                <legend>Additional Information</legend>
+                <label for="comments">Comments:</label>
+                <textarea id="comments" name="comments" rows="4"></textarea>
+            </fieldset>
+
+            <button type="button" id="submit" class="btn btn-primary">Submit</button>
+
+            <!-- Validation and confirmation messages -->
+            <div id="validationMessage" class="text-danger"></div>
+            <div id="confirmationMessage" class="text-success"></div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript for form validation and submission
+        document.getElementById("submit").addEventListener("click", function () {
+            var fullName = document.getElementById("fullName").value;
+            var email = document.getElementById("email").value;
+            var location = document.getElementById("location").value;
+            var comments = document.getElementById("comments").value;
+            var validationMessage = document.getElementById("validationMessage");
+            var confirmationMessage = document.getElementById("confirmationMessage");
+
+            // Reset messages
+            validationMessage.innerHTML = "";
+            confirmationMessage.innerHTML = "";
+
+            // Validation checks
+            if (!fullName.match(/^[a-zA-Z\s]+$/)) {
+                validationMessage.innerHTML = "Please enter a valid full name.";
+                return;
+            }
+
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                validationMessage.innerHTML = "Please enter a valid email address.";
+                return;
+            }
+
+            if (!location) {
+                validationMessage.innerHTML = "Please enter your location.";
+                return;
+            }
+
+            // If all validations pass, show success message
+            confirmationMessage.innerHTML = "Your information has been submitted successfully.";
+        });
+    </script>
+
+</body>
+
+</html>
