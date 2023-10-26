@@ -1,0 +1,107 @@
+$(document).ready(function () {
+    // Function to load tasks and resume state from localStorage
+    function loadTasks() {
+        const savedTasks = localStorage.getItem('tasks');
+        if (savedTasks) {
+            $("#taskList").html(savedTasks);
+            // Restore the completed state of each task
+            $("#taskList li").each(function () {
+                const checkbox = $(this).find(".complete");
+                if (checkbox.prop("checked")) {
+                    $(this).addClass("completed");
+                }
+            });
+        }
+
+        const isResumed = localStorage.getItem('isResumed');
+        if (isResumed === 'true') {
+            // Change the background color to orange
+            $(".StartCourse").parent().css("background-color", "orange");
+            // Change the button text to "Resume Course"
+            $(".StartCourse").val("Resume Course");
+            // Remove the click event from the button
+            $(".StartCourse").off("click");
+            // Add a new class for styling (if needed)
+            $(".StartCourse").addClass("resumeButton");
+        }
+    }
+
+    // Function to save tasks and resume state to localStorage
+    function saveTasks() {
+        const tasksHTML = $("#taskList").html();
+        localStorage.setItem('tasks', tasksHTML);
+    }
+
+    // Add Task
+    $("#addTask").click(function () {
+        const taskText = $("#taskInput").val().trim();
+        if (taskText !== '') {
+            const taskItem = $("<li></li>").text(taskText);
+            const deleteButton = $("<button>Delete</button>").addClass("delete");
+            const checkbox = $("<input type='checkbox'>").addClass("complete");
+            const startCourseButton = $("<input type='button' value='Start Course'>").addClass("StartCourse");
+            const startExerciseButton = $("<input type='button' value='Start Exercise'>").addClass("StartExercise");
+            taskItem.append(startCourseButton, startExerciseButton, checkbox, deleteButton);
+            $("#taskList").append(taskItem);
+            $("#taskInput").val('');
+
+            // Save tasks to localStorage when a new task is added
+            saveTasks();
+        }
+    });
+
+    // Start Course Button (Event Delegation)
+    $("#taskList").on("click", ".StartCourse", function (e) {
+        // Stop the event propagation to allow other buttons to be clickable
+        e.stopPropagation();
+        // Navigate to the course URL
+        window.location.href = "https://www.w3schools.com/js/default.asp"; // Replace with the desired URL for the course
+        // Change the background color to orange
+        $(this).parent().css("background-color", "orange");
+        // Change the button text to "Resume Course"
+        $(this).val("Resume Course");
+        // Remove the click event from the button
+        $(this).off("click");
+        // Add a new class for styling (if needed)
+        $(this).addClass("resumeButton");
+
+        // Store the resume state in localStorage
+        localStorage.setItem('isResumed', 'true');
+    });
+
+    // Start Exercise Button (Event Delegation)
+    $("#taskList").on("click", ".StartExercise", function (e) {
+        // Stop the event propagation to allow other buttons to be clickable
+        e.stopPropagation();
+        // Navigate to the exercise URL
+        window.location.href = "https://www.w3schools.com/java/java_examples.asp"; // Replace with the desired URL for the exercise
+    });
+
+    // Mark Task as Complete
+    $("#taskList").on("change", ".complete", function () {
+        const taskName = $(this).siblings("span").text();
+        if (this.checked) {
+            alert("Task '" + taskName + "' marked as complete!");
+            $(this).parent().addClass("completed");
+        } else {
+            $(this).parent().removeClass("completed");
+        }
+
+        // Save tasks to localStorage when a task is marked as complete or pending
+        saveTasks();
+    });
+
+    // Delete Task
+    $("#taskList").on("click", ".delete", function () {
+        const taskName = $(this).siblings("span").text();
+        if (confirm("Are you sure you want to delete the task '" + taskName + "'?")) {
+            $(this).parent().remove();
+
+            // Save tasks to localStorage when a task is deleted
+            saveTasks();
+        }
+    });
+
+    // Load tasks and resume state from localStorage when the page loads
+    loadTasks();
+});

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+    <style>
+       
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image:url("Login.jpg.jpg");
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.container {
+    background-color: #ffffffa2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.085);
+    max-width: 400px;
+}
+
+
+h2 {
+    text-align: center;
+}
+
+
+.RegisterationFormDetails {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    display: block;
+    margin: 0 auto;
+}
+
+#male,
+#female,
+#others,
+#language {
+    font-weight: normal;
+    font-size: 14px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">        
+        <form action="#" method="post" id="loginForm">
+            <h2>Login</h2>
+            <label for="userId">User ID:</label>
+            <input type="text" id="userId" name="userId" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="submit" value="Login">
+            <p class="error" id="loginError"></p>
+            <p><a href="#" id="createAccountLink">New user! Create an account?</a></p>
+        </form>
+       
+        <form action="#" method="post" id="registrationForm" style="display: none;">
+            <h2>Registration</h2>
+            <label for="newUserId">User ID:</label>
+            <input type="text" id="newUserId" name="newUserId" pattern="[a-zA-Z]+" required>
+
+            <label for="newPassword">Password:</label>
+            <input type="password" id="newPassword" name="newPassword" required pattern="^(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$">
+            
+            <input type="submit" value="Register">
+            <p class="error" id="registrationMessage"></p>
+        </form>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const userIdInput = document.getElementById("userId");
+        const passwordInput = document.getElementById("password");
+        const loginError = document.getElementById("loginError");
+
+        const registrationForm = document.getElementById("registrationForm");
+        const newUserIdInput = document.getElementById("newUserId");
+        const newPasswordInput = document.getElementById("newPassword");
+        const registrationMessage = document.getElementById("registrationMessage");
+        
+        const createAccountLink = document.getElementById("createAccountLink");
+
+        // Toggle between login and registration forms
+        createAccountLink.addEventListener("click", function (e) {
+            e.preventDefault();
+            loginForm.style.display = "none";
+            registrationForm.style.display = "block";
+        });
+
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const userId = userIdInput.value;
+            const password = passwordInput.value;
+
+            // Replace these with your actual user data
+            const users = {
+                "sampath": "12345^",
+                "nikil": "12345^",
+                "saranya": "12345^"
+            };
+
+            if (users[userId] === password) {
+                // Successful login
+                loginError.textContent = "";
+                alert("Login successful!");
+                // Redirect to another web page (replace with the desired URL)
+                window.location.href = "To_Do-List.html";
+            } else {
+                // Incorrect user ID or password
+                loginError.textContent = "Incorrect user ID or Password";
+            }
+        });
+
+        registrationForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const newUserId = newUserIdInput.value;
+            const newPassword = newPasswordInput.value;
+
+            // Validation for username (letters only) and password (at least one special character)
+            const usernamePattern = /^[a-zA-Z]+$/;
+            const passwordPattern = /^(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/;
+
+            if (!usernamePattern.test(newUserId)) {
+                registrationMessage.textContent = "Username should contain only letters.";
+            } else if (!passwordPattern.test(newPassword)) {
+                registrationMessage.textContent = "Password should contain at least one special character.";
+            } else {
+                // Registration successful
+                registrationMessage.textContent = "Account created successfully!";
+                // You can add logic here to save the new user data
+            }
+        });
+    </script>
+</body>
+</html>
