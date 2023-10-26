@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="Assigement1.css">
+    <title>Survey Form</title>
+</head>
+<body>
+    <h1 id="title">ITcareerHUB</h1>
+    <p id="description">A way to found the happiness and hopefull Life.</p>
+    <form id="survey-form">
+        <div class="SurveyFormDetails">
+            <label for="Name"> Name:</label>
+            <input type="text" placeholder="Enter your  name" id="Name" name="Name" required>
+        </div>       
+        <div class="SurveyFormDetails">
+            <label for="email">Email:</label>
+            <input type="email"placeholder="Enter a valid email ID" id="email" name="email" required>
+        </div>
+        <div class="SurveyFormDetails">                  
+          <label for="number" id="number-label">Contact Number:</label>
+           <input type="number" id="number" placeholder="Enter a number" min="0" max="100">
+        </div>
+       
+        <div class="SurveyFormDetails">
+            <br><br>
+            <label for="gender">Gender:</label>   
+            <br>  
+            &nbsp;&nbsp;&nbsp;&nbsp;         
+            <input type="radio"id ="gender" name="gender">
+            &nbsp;
+            <span id="male">male</span>
+            &nbsp;&nbsp;&nbsp; 
+            <input type="radio"id="gender" name="gender" value="female">
+            &nbsp;
+            <span id="female">female</span>
+            &nbsp;&nbsp;&nbsp;
+            <input type ="radio"id="gender"name ="gender" value="others">
+            &nbsp;
+            <span id="others">others</span>                
+            <br>            
+            <label for="birthdate">Date of Birth:</label>
+            <br>
+            &nbsp;&nbsp;&nbsp;
+             <input type="date" id="birthdate" name="birthdate" required>         
+             <br>      
+             <label for="Preffered industry">Preffered industry</label>
+             <br>
+             &nbsp;&nbsp;&nbsp;  
+             <br>  
+             <input type="checkbox" id="Engineer"name="Engineer" value ="Devoloper">
+             &nbsp;            
+             <span id="Devoloper">Devoloper</span>
+             &nbsp;&nbsp;&nbsp;
+             <input type="checkbox"id="Engineer"name="Engineer"value="Tester">
+             &nbsp;
+             <span id="Tester">Tester</span>
+             &nbsp;&nbsp;&nbsp; 
+             <input type="checkbox"id="Engineer"name="Engineer"value="System Administer">
+             &nbsp;
+             <span id="Tester">System Administer</span>             
+            <br>                 
+            <label for="dropdown">No of Experience in Preffered industry</label>
+            <select id="dropdown">
+                <option value="0-2">0-2</option>
+                <option value="3-5">3-5</option>
+                <option value="others">6+</option>
+            </select>
+           
+         <br>    
+          <label for="comments">Your Interest on preferred industry:</label>
+          <textarea id="comments" rows="4" cols="50"></textarea>
+         &nbsp;&nbsp;
+         </div>
+         <input type="submit" id="submit" value="Submit"> 
+       </form>
+    </div>
+</body>
+</html>
