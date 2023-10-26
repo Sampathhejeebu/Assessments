@@ -1,0 +1,8 @@
+CREATE TABLE [dbo].[Products] (
+    [ProductId]  INT            IDENTITY (1, 1) NOT NULL,
+    [Name]       NVARCHAR (MAX) NULL,
+    [Price]      INT            NOT NULL,
+    [ProductQTY] INT            NOT NULL,
+    CONSTRAINT [PK_Products] PRIMARY KEY CLUSTERED ([ProductId] ASC)
+);
+

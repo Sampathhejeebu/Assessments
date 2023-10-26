@@ -1,0 +1,15 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace CustomerOrders.Model
+{
+    public class Products
+    {
+        [Key]
+        public int ProductId { get; set; }
+        public string? Name { get; set; }
+        public int Price { get; set; }
+        public int ProductQTY {  get; set; }
+
+
+    }
+}

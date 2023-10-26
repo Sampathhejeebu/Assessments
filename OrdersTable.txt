@@ -1,0 +1,21 @@
+CREATE TABLE [dbo].[Orders] (
+    [OrderId]             INT        IDENTITY (1, 1) NOT NULL,
+    [ProductId]           INT        NULL,
+    [OrderQTY]            INT        NOT NULL,
+    [OrderAmount]         FLOAT (53) NOT NULL,
+    [CustomersCustomerId] INT        NULL,
+    CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED ([OrderId] ASC),
+    CONSTRAINT [FK_Orders_Customers_CustomersCustomerId] FOREIGN KEY ([CustomersCustomerId]) REFERENCES [dbo].[Customers] ([CustomerId]),
+    CONSTRAINT [FK_Orders_Products_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [dbo].[Products] ([ProductId])
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_Orders_CustomersCustomerId]
+    ON [dbo].[Orders]([CustomersCustomerId] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_Orders_ProductId]
+    ON [dbo].[Orders]([ProductId] ASC);
+
