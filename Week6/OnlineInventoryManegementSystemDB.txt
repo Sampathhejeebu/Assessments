@@ -1,0 +1,65 @@
+create table [dbo].[products]( prodid int primary key, prodname varchar(180), price money, quantity int)
+go
+
+create table [dbo].[sales](salesid int not null primary key,proid int not null foreign key references Products(prodid) ,amount money,qtysold int)
+go
+
+create proc [dbo].[usp_products](@prodid int ,@prodname varchar(180),@price money,@quantity int)
+as
+begin
+insert into [dbo].[products](prodid,prodname,price,quantity) values(@prodid,@prodname,@price,@quantity)
+end
+go
+
+create proc [dbo].[usp_sales](@salesid int,@proid int,@amount money,@qtysold int)
+as
+begin
+insert into sales(salesid,proid,amount,qtysold) values(@salesid,@proid,@amount,@qtysold)
+end
+go
+
+create proc [dbo].[usp_insertprod](@prodid int,@prodname varchar(180),@price money,@quantity int)
+as
+begin
+insert into [dbo].[products](prodid,prodname,price,quantity)values(@prodid,@prodname,@price,@quantity)
+end
+go
+
+create proc [dbo].[usp_insertsales](@prodid int,@salesqty int,@amount money)
+as
+begin
+insert into [dbo].[sales](prodid,salesqty,amount)values(@prodid,@salesqty,@amount)
+end
+go
+create proc [dbo].[usp_selectsales]
+as
+begin
+select * from sales;
+end
+go
+ 
+create procedure [dbo].[usp_updateprod](@prodid int, @Updatedprodname varchar(180), @Updatedprice money, @Updatedprodqty int)
+as
+begin
+update [dbo].[Products]
+set prodname = @Updatedprodname,
+price = @Updatedprice,
+quantity= @Updatedprodqty
+where prodid = @prodid;
+end
+go
+
+Create proc [dbo].[selectproduct]
+as
+begin
+select * from [dbo].[products];
+end
+go
+
+
+create proc [dbo].[usp_deleteproduct](@prodid int)
+as
+begin
+delete from [dbo].[Products]
+where prodid = @prodid;
+end

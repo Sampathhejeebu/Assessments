@@ -1,0 +1,198 @@
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Configuration;
+
+namespace OnlineInventoryManagementSystem
+{
+    internal class DataLayer
+    {
+        // using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SampathDatabaseConnection"].ConnectionString))
+
+        public static void InsertProductCategory(int prodid, string prodname, int price, int quantity)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SampathDatabaseConnection"].ConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_insertprod";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param1 = new SqlParameter();
+                    param1.ParameterName = "@prodid";
+                    param1.SqlDbType = SqlDbType.Int;
+                    param1.Value = prodid;
+                    cmd.Parameters.Add(param1);
+
+                    SqlParameter param2 = new SqlParameter();
+                    param2.ParameterName = "@prodname";
+                    param2.SqlDbType = SqlDbType.VarChar;
+                    param2.Value = prodname;
+                    cmd.Parameters.Add(param2);
+
+                    SqlParameter param3 = new SqlParameter();
+                    param3.ParameterName = "@price";
+                    param3.SqlDbType = SqlDbType.Money;
+                    param3.Value = price;
+                    cmd.Parameters.Add(param3);
+
+                    SqlParameter param4 = new SqlParameter();
+                    param4.ParameterName = "@quantity";
+                    param4.SqlDbType = SqlDbType.Int;
+                    param4.Value = quantity;
+                    cmd.Parameters.Add(param4);
+
+                    con.Open();
+                    Console.WriteLine(con.State);
+                    int i = cmd.ExecuteNonQuery();
+                    if (i > 0)
+                    {
+                        Console.WriteLine(prodname + " data inserted succesfully");
+                    }
+                    con.Close();
+                    Console.WriteLine(con.State);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void RetrieveProductDetails()
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SampathDatabaseConnection"].ConnectionString))
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = con;
+                    command.CommandText = "selectproduct";
+                    command.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    Console.WriteLine(con.State);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Console.WriteLine("{0} {1} {2} {3} ",
+                                    reader[0], reader[1], reader[2], reader[3]);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No records found");
+                        }
+                        reader.Close();
+                        con.Close();
+                        Console.WriteLine(con.State);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+        public static void UpdateProductDetails(int prodid, string newproname, int newprice, int newproqty)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SampathDatabaseConnection"].ConnectionString))
+
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = con;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "usp_updateprod";
+
+                    SqlParameter parmeter = new SqlParameter();
+                    parmeter.ParameterName = "@prodid";
+                    parmeter.SqlDbType = SqlDbType.Int;
+                    parmeter.Direction = ParameterDirection.Input;
+                    parmeter.Value = prodid;
+                    command.Parameters.Add(parmeter);
+
+                    SqlParameter parmeter2 = new SqlParameter();
+                    parmeter2.ParameterName = "@Updatedprice";
+                    parmeter2.SqlDbType = SqlDbType.Money;
+                    parmeter2.Direction = ParameterDirection.Input;
+                    parmeter2.Value = newprice;
+                    command.Parameters.Add(parmeter2);
+
+                    SqlParameter parmeter3 = new SqlParameter();
+                    parmeter3.ParameterName = "@Updatedprodname";
+                    parmeter3.SqlDbType = SqlDbType.VarChar;
+                    parmeter3.Direction = ParameterDirection.Input;
+                    parmeter3.Value = newproname;
+                    command.Parameters.Add(parmeter3);
+
+                    SqlParameter parmeter4 = new SqlParameter();
+                    parmeter4.ParameterName = "@Updatedprodqty";
+                    parmeter4.SqlDbType = SqlDbType.Int;
+                    parmeter4.Direction = ParameterDirection.Input;
+                    parmeter4.Value = newproqty;
+                    command.Parameters.Add(parmeter4);
+                    con.Open();
+                    Console.WriteLine(con.State);
+                    int i = command.ExecuteNonQuery();
+                    if (i > 0)
+                    {
+
+                        Console.WriteLine("updated successfully");
+
+                    }
+                    con.Close();
+                    Console.WriteLine(con.State);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public static void deleteprod(int prodid)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SampathDatabaseConnection"].ConnectionString))
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = con;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "usp_deleteproduct";
+
+                    SqlParameter parmeter = new SqlParameter();
+                    parmeter.ParameterName = "@prodid";
+                    parmeter.SqlDbType = SqlDbType.Int;
+                    parmeter.Direction = ParameterDirection.Input;
+                    parmeter.Value = prodid;
+                    command.Parameters.Add(parmeter);
+                    con.Open();
+                    Console.WriteLine(con.State);
+                    int i = command.ExecuteNonQuery();
+                    if (i > 0)
+                    {
+                        Console.WriteLine("deleted successfully");
+                    }
+                    con.Close();
+                    Console.WriteLine(con.State);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+}
+
+
